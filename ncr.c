@@ -1,32 +1,37 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-int factorial(int n);
+long ranged_factorial(int start, int end);
+long factorial(int n);
 
 int main() {
-    int product = 1;
+    long product = 1;
 
     while(true) {
         int n;
         int r;
-        printf("Size of the set (n): ");
+        printf("n: ");
         scanf("%i", &n);
-        printf("Amount of selected elements (r): ");
+        printf("r: ");
         scanf("%i", &r);
 
-        int ncr = factorial(n) / factorial(r) / factorial(n - r);
-        printf("%d choose %d is %d\n", n, r, ncr);
+        long ncr = ranged_factorial(n - r + 1, n) / factorial(r);
+        printf("%d choose %d is %ld\n", n, r, ncr);
 
         product *= ncr;
         if (product != ncr) {
-            printf("Accumulated product is %d\n", product);
+            printf("Accumulated product is %ld\n", product);
         }
     }
 }
 
-int factorial(int n) {
-    int product = 1;
-    for (int i = 1; i <= n; i++) {
+long factorial(int n) {
+    return ranged_factorial(1, n);
+}
+
+long ranged_factorial(int start, int end) {
+    long product = 1;
+    for (int i = start; i <= end; i++) {
         product *= i;
     }
     return product;
